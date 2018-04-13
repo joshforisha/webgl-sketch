@@ -1,0 +1,14 @@
+{
+  "name": "webgl-sketch",
+  "version": "0.1.0",
+  "description": "A WebGL canvas—shader wrapper library",
+  "keywords": [
+    "canvas",
+    "webgl"
+  ],
+  "bugs": "https://github.com/joshforisha/webgl-sketch/issues",
+  "license": "MIT",
+  "people": "Joshua Forisha <josh@forisha.com> (http://joshforisha.com)",
+  "main": "src/index.js",
+  "repository": "github:joshforisha/webgl-sketch"
+}
