@@ -29,6 +29,7 @@ Instantiates a WebGL context on a canvas, and renders shaders to it.<br />
 Options can include:
 
 - `canvas` *(optional)* – An existing canvas element to render into; if not supplied, a new canvas is created instead.
+- `dynamic` *(optional)* – A boolean, whether to animate dynamic rendering of the canvas, which sets the uniform float `u_time` each render.
 - `fragmentShaderSource` – GLSL shader source string to use as the fragment shader.
 - `size` *(optional)* – An array of `[width, height]` to size the canvas to; if not supplied, `[200, 200]` is used.
 - `uniforms` *(optional)* – An object to inject as uniforms into the fragment shader, using each key as the uniform name (e.g., `"name"` as `u_name`) and the value encoded based on type(s).
