@@ -1,32 +1,5 @@
-const positions = new Float32Array([
-  -1.0,
-  -1.0,
-  1.0,
-  -1.0,
-  -1.0,
-  1.0,
-  -1.0,
-  1.0,
-  1.0,
-  -1.0,
-  1.0,
-  1.0
-]);
-
-const texcoords = new Float32Array([
-  0.0,
-  0.0,
-  1.0,
-  0.0,
-  0.0,
-  1.0,
-  0.0,
-  1.0,
-  1.0,
-  0.0,
-  1.0,
-  1.0
-]);
+const positions = new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]);
+const texcoords = new Float32Array([0, 0, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1]);
 
 function attachArrayBuffer(gl, program, key, data) {
   const location = gl.getAttribLocation(program, key);
@@ -92,17 +65,22 @@ export function create(options = {}) {
 
   const start = Date.now();
 
-  function render() {
-    if (isDynamic) setUniform('time', (Date.now() - start) * 0.001);
-    gl.drawArrays(gl.TRIANGLES, 0, 6);
-    if (isDynamic) {
-      window.requestAnimationFrame(render);
-    }
-  }
+  const render = isDynamic
+    ? () => {
+        setUniform('time', (Date.now() - start) * 0.001);
+        gl.drawArrays(gl.TRIANGLES, 0, 6);
+        window.requestAnimationFrame(render);
+      }
+    : () => {
+        gl.drawArrays(gl.TRIANGLES, 0, 6);
+      };
 
-  window.requestAnimationFrame(render);
+  const rendered = new Promise(resolve => {
+    window.requestAnimationFrame(render);
+    resolve();
+  });
 
-  return { canvas, gl, program, render, setUniform };
+  return { canvas, gl, program, render, rendered, setUniform };
 }
 
 function createShader(gl, type, source) {
