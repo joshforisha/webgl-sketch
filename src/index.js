@@ -18,7 +18,7 @@ export function create(options = {}) {
   canvas.setAttribute('height', height);
   canvas.setAttribute('width', width);
 
-  const gl = canvas.getContext('webgl2', {
+  const gl = canvas.getContext('webgl', {
     antialias: false,
     preserveDrawingBuffer: true
   });
