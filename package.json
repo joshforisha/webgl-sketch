@@ -11,6 +11,9 @@
   "people": "Joshua Forisha <josh@forisha.com> (http://joshforisha.com)",
   "main": "src/index.js",
   "repository": "github:joshforisha/webgl-sketch",
+  "scripts": {
+    "test": "echo \"TODO: tests\""
+  },
   "devDependencies": {
     "eslint": "^7.4.0",
     "eslint-config-prettier": "^6.11.0",
