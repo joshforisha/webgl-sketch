@@ -10,21 +10,21 @@ function attachArrayBuffer(gl, program, key, data) {
 }
 
 export function create(options = {}) {
-  const canvas = options.canvas || document.createElement('canvas');
+  const canvas = options.canvas || document.createElement("canvas");
   const [width, height] = options.size || [200, 200];
   const isDynamic = Boolean(options.dynamic);
   const uniforms = options.uniforms || {};
 
-  canvas.setAttribute('height', height);
-  canvas.setAttribute('width', width);
+  canvas.setAttribute("height", height);
+  canvas.setAttribute("width", width);
 
-  const gl = canvas.getContext('webgl', {
+  const gl = canvas.getContext("webgl", {
     antialias: false,
-    preserveDrawingBuffer: true
+    preserveDrawingBuffer: true,
   });
 
   if (!gl) {
-    throw 'A WebGL rendering context could not be initialized.';
+    throw "A WebGL rendering context could not be initialized.";
   }
 
   const vertexShader = createShader(
@@ -54,12 +54,12 @@ export function create(options = {}) {
   gl.deleteShader(vertexShader);
   gl.deleteShader(fragmentShader);
 
-  attachArrayBuffer(gl, program, 'a_texcoord', texcoords);
-  attachArrayBuffer(gl, program, 'a_position', positions);
+  attachArrayBuffer(gl, program, "a_texcoord", texcoords);
+  attachArrayBuffer(gl, program, "a_position", positions);
 
   const setUniform = makeSetUniform(gl, program);
-  setUniform('resolution', [width, height]);
-  Object.keys(uniforms).forEach(key => {
+  setUniform("resolution", [width, height]);
+  Object.keys(uniforms).forEach((key) => {
     setUniform(key, uniforms[key]);
   });
 
@@ -67,7 +67,7 @@ export function create(options = {}) {
 
   const render = isDynamic
     ? () => {
-        setUniform('time', (Date.now() - start) * 0.001);
+        setUniform("time", (Date.now() - start) * 0.001);
         gl.drawArrays(gl.TRIANGLES, 0, 6);
         window.requestAnimationFrame(render);
       }
@@ -75,7 +75,7 @@ export function create(options = {}) {
         gl.drawArrays(gl.TRIANGLES, 0, 6);
       };
 
-  const rendered = new Promise(resolve => {
+  const rendered = new Promise((resolve) => {
     window.requestAnimationFrame(render);
     resolve();
   });
@@ -99,10 +99,10 @@ function createShader(gl, type, source) {
 function makeSetUniform(gl, program, uniforms = {}) {
   return (basicName, value) => {
     const isArray = Array.isArray(value);
-    const method = isArray ? `${value.length}f` : '1f';
+    const method = isArray ? `${value.length}f` : "1f";
     const name = `u_${basicName}`;
 
-    if (!uniforms.hasOwnProperty(name)) {
+    if (!(name in uniforms)) {
       uniforms[name] = {};
     }
 
@@ -113,8 +113,8 @@ function makeSetUniform(gl, program, uniforms = {}) {
 
     if (
       change ||
-      typeof location === 'undefined' ||
-      typeof value === 'undefined'
+      typeof location === "undefined" ||
+      typeof value === "undefined"
     ) {
       gl[uniformMethod].apply(gl, [location].concat(value));
     }

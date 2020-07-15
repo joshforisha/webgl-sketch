@@ -10,5 +10,11 @@
   "license": "MIT",
   "people": "Joshua Forisha <josh@forisha.com> (http://joshforisha.com)",
   "main": "src/index.js",
-  "repository": "github:joshforisha/webgl-sketch"
+  "repository": "github:joshforisha/webgl-sketch",
+  "devDependencies": {
+    "eslint": "^7.4.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "prettier": "^2.0.5"
+  }
 }
